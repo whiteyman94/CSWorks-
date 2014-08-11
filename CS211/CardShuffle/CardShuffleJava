@@ -1,0 +1,94 @@
+package CardShuffle;
+
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String args[]) {
+		Scanner input = new Scanner(System.in);
+		Deck deck = new Deck();
+		deck.shuffle();
+		System.out.println("How many cards do u want to draw?");
+		int num = input.nextInt();
+		deck.drawCard(num);
+	}
+
+}
+
+
+package CardShuffle;
+
+public class Deck {
+	private Card[] deck;
+
+	public Deck() {
+
+		String[] suits = { "Diamonds", "Spades", "Hearts", "Clubs" };
+		int count = 0;
+		deck = new Card[52];
+		for (int i = 0; i < suits.length; i++) {
+			for (int j = 1; j <= 13; j++) {
+				deck[count] = new Card(j, suits[i]);
+				count++;
+			}
+		}
+
+	}
+
+	public void shuffle() {
+		for (int i = 0; i < deck.length; i++) {
+			int cardnum = (int) (Math.random() * 52);
+			Card temp = deck[i];
+			deck[i] = deck[cardnum];
+			deck[cardnum] = temp;
+			// swap every position with another random position
+		}
+	}
+
+	public void drawCard(int num) {
+		for (int i = 0; i < num; i++) {
+			System.out.println(deck[i]);
+		}
+	}
+}
+
+
+
+package CardShuffle;
+
+public class Card {
+
+	private String suit;
+	private int value;
+
+	public Card(int value, String suit) {
+		this.value = value;
+		this.suit = suit;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public String getSuit() {
+		return suit;
+	}
+
+	public String toString() {
+		String card = "The ";
+		if (value > 1 && value < 11) {
+			card += value;
+		} else if (value == 1) {
+			card += "Ace";
+		} else if (value == 11) {
+			card += "Jack";
+		} else if (value == 12) {
+			card += "Queen";
+		} else {
+			card += "King";
+		}
+		card += " of " + suit;
+		return card;
+	}
+
+}
