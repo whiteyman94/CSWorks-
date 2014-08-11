@@ -1,0 +1,51 @@
+package MonteCarlo;
+
+public class Main {
+
+	public static void main(String args[]) {
+		Dice[] dicArray = new Dice[5];
+		for (int i = 0; i < 5; i++) {
+			Dice myDice = new Dice();
+			dicArray[i] = myDice;
+		}
+
+		int result = 0;
+		int diceValue = 0;
+		int highest = 0;
+
+		for (int i = 0; i < 1000000; i++) {
+			result = 0;
+			for (int j = 0; j < dicArray.length; j++) {
+				diceValue = dicArray[j].getValue();
+				result = result + diceValue;
+			}
+			if (highest < result) {
+				highest = result;
+			}
+		}
+		System.out.print("the highest dice roll total was " + highest);
+	}
+}
+
+
+
+package MonteCarlo;
+
+import java.util.Random;
+public class Dice {
+	
+	private int diceNum;
+	private Random ranGen=new Random();
+	
+	public Dice(){
+		diceNum=roll();
+	}
+	
+	public int roll(){
+		return ranGen.nextInt(6)+1;
+	}
+
+	public int getValue(){
+		return diceNum;
+	}
+}
